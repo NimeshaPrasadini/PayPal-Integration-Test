@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h3>Cart Page</h3>
+    <table border="1">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Sub Total</th>
+        </tr>
+        @foreach(var product in ViewBag.products)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>$@product.Price</td>
+                <td>@product.Quantity</td>
+                <td>$@(product.Price * product.Quantity)</td>
+            </tr>
+        }
+        <tr>
+            <td colspan="4" align="right">Total</td>
+            <td>$@ViewBag.total</td>
+        </tr>
+    </table>
+    <form method="post" asp-controller="cart" asp-action="checkout">
+        <input type="hidden" name="total" value="@ViewBag.total" />
+        <input type="submit" value="Checkout" />
+    </form>
+</body>
+</html>
